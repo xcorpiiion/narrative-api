@@ -20,13 +20,13 @@ spring:
 
   ai:
     google:
-      gemini:
+      genai:
         api-key: ${GEMINI_API_KEY}
         chat:
           options:
             model: gemini-2.0-flash
-            temperature: 0.8      # criativo mas controlado
-            max-output-tokens: 300 # narrações curtas e impactantes
+            temperature: 0.8
+            max-output-tokens: 300
 
 eureka:
   client:
@@ -58,8 +58,6 @@ app:
     refresh-token-expiration-msec: 604800000
 
   narrative:
-    # Máximo de mensagens do histórico enviadas ao Gemini por request
-    # Mais mensagens = mais contexto, mas mais tokens gastos
     max-historico-mensagens: 20
 
 logging:
