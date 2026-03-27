@@ -1,0 +1,68 @@
+server:
+  port: ${PORT:8097}
+
+spring:
+  application:
+    name: narrative-api
+
+  config:
+    import:
+      - optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888}
+
+  data:
+    mongodb:
+      host: ${MONGO_HOST:localhost}
+      port: ${MONGO_PORT:27017}
+      database: narrative_db
+      username: ${MONGO_ROOT_USER:admin}
+      password: ${MONGO_ROOT_PASS}
+      authentication-database: admin
+
+  ai:
+    google:
+      gemini:
+        api-key: ${GEMINI_API_KEY}
+        chat:
+          options:
+            model: gemini-2.0-flash
+            temperature: 0.8      # criativo mas controlado
+            max-output-tokens: 300 # narrações curtas e impactantes
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+  instance:
+    prefer-ip-address: true
+    hostname: ${EUREKA_INSTANCE_HOSTNAME:localhost}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: ${ZIPKIN_URL:http://localhost:9411/api/v2/spans}
+
+app:
+  auth:
+    token-secret: ${JWT_TOKEN_SECRET}
+    token-expiration-msec: 900000
+    refresh-token-expiration-msec: 604800000
+
+  narrative:
+    # Máximo de mensagens do histórico enviadas ao Gemini por request
+    # Mais mensagens = mais contexto, mas mais tokens gastos
+    max-historico-mensagens: 20
+
+logging:
+  level:
+    root: INFO
+    br.com.study.narrativeapi: DEBUG
