@@ -1,7 +1,7 @@
 package br.com.study.narrativeapi.service;
 
-import br.com.study.genericcrudmongo.service.exception.DataIntegrityException;
-import br.com.study.genericcrudmongo.service.exception.ObjectNotFoundException;
+import br.com.study.genericcrudmongo.controller.exception.DataIntegrityException;
+import br.com.study.genericcrudmongo.controller.exception.ObjectNotFoundException;
 import br.com.study.narrativeapi.feign.CombatApiFeign;
 import br.com.study.narrativeapi.model.SessaoNarrativa;
 import br.com.study.narrativeapi.model.dto.NarrativaRequest;

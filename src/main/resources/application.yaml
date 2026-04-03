@@ -1,4 +1,8 @@
 server:
+  tomcat:
+    connection-timeout: 300000    # 5 minutos
+  servlet:
+    async-timeout: 300000         # 5 minutos para requests assíncronos
   port: ${PORT:8097}
 
 spring:
@@ -27,29 +31,6 @@ spring:
             model: gemini-2.0-flash
             temperature: 0.8
             max-output-tokens: 300
-
-eureka:
-  client:
-    service-url:
-      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
-  instance:
-    prefer-ip-address: true
-    hostname: ${EUREKA_INSTANCE_HOSTNAME:localhost}
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info
-  endpoint:
-    health:
-      show-details: always
-  tracing:
-    sampling:
-      probability: 1.0
-  zipkin:
-    tracing:
-      endpoint: ${ZIPKIN_URL:http://localhost:9411/api/v2/spans}
 
 app:
   auth:

@@ -10,10 +10,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -36,6 +35,21 @@ public class NarrativaController {
     ) {
         return ResponseEntity.status(CREATED)
                 .body(service.iniciarSessao(request, usuario.getId()));
+    }
+
+    @Operation(summary = "Busca uma sessão pelo ID com histórico completo")
+    @GetMapping(value = "/sessao/{sessaoId}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<NarrativaResponse.Sessao> buscarSessao(
+            @PathVariable String sessaoId,
+            @CurrentUser UserPrincipal usuario
+    ) {
+        return ResponseEntity.ok(service.buscarSessao(sessaoId, usuario.getId()));
+    }
+
+    @Operation(summary = "Lista todas as sessões de um personagem — inclusive encerradas")
+    @GetMapping(value = "/sessao/personagem/{personagemId}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<NarrativaResponse.SessaoResumo>> listarSessoes(@PathVariable Long personagemId, @CurrentUser UserPrincipal usuario) {
+        return ResponseEntity.ok(service.listarSessoesPorPersonagem(personagemId, usuario.getId()));
     }
 
     @Operation(summary = "Narra um turno — recebe resultado da combat-api e retorna narração do GM")

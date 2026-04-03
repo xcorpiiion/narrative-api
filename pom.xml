@@ -20,7 +20,7 @@
     <properties>
         <java.version>21</java.version>
         <spring-cloud.version>2024.0.0</spring-cloud.version>
-        <spring-ai.version>2.0.0-M2</spring-ai.version>
+        <spring-ai.version>1.1.4</spring-ai.version>
     </properties>
 
     <repositories>
@@ -29,15 +29,6 @@
             <url>https://maven.pkg.github.com/xcorpiiion/generic-authorization</url>
             <snapshots>
                 <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <!-- Necessário para versões milestone do Spring AI -->
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
             </snapshots>
         </repository>
     </repositories>
@@ -144,6 +135,11 @@
             <artifactId>de.flapdoodle.embed.mongo.spring3x</artifactId>
             <version>4.14.0</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>7.4</version>
         </dependency>
 
     </dependencies>
